@@ -9,7 +9,7 @@ def add_classes(df, dx_column='dx', classes=None):
     try: unique_classes.remove('')
     except: pass
 
-    # Se existem classes que nao foram detectadas nas colunas, inicialaiza-las com zero
+    # Initialize missing class columns with zeros.
     if classes is not None:
         for cls in classes:
             if cls not in unique_classes:

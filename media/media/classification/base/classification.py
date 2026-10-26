@@ -15,7 +15,7 @@ class BaseClassification(L.LightningModule):
                  threshold=0.5,
                  save_model=False):
         super().__init__()
-        # if save_model: self.save_hyperparameters('model') # deixa muito lento
+        # if save_model: self.save_hyperparameters('model') # Saving model hyperparameters is slow.
         self.lr = lr
         # self.save_hyperparameters(ignore=['model'])
         self.model = model

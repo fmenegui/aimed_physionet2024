@@ -1,5 +1,5 @@
 """
-K-fold estratificado com grupos `stratified_group_k_fold`
+Stratified group K-fold splitting with `stratified_group_k_fold`.
 """
 
 from sklearn.model_selection import StratifiedGroupKFold, StratifiedKFold, GroupKFold

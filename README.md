@@ -2,7 +2,7 @@
 
 **1st place in the classification task of the George B. Moody PhysioNet Challenge 2024.**
 
-[Português](README.pt-BR.md) | [Paper](https://doi.org/10.22489/CinC.2024.398) | [Challenge](https://moody-challenge.physionet.org/2024/) | [Model weights](https://huggingface.co/fmenegui/cinc_of5)
+[Paper](https://doi.org/10.22489/CinC.2024.398) | [Challenge](https://moody-challenge.physionet.org/2024/) | [Model weights](https://huggingface.co/fmenegui/cinc_of5)
 
 This repository makes the AIMED method easier to use and train. A ConvNeXt-Tiny
 classifies an ECG page directly into 11 possible findings. The five fold models

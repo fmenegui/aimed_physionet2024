@@ -1,5 +1,5 @@
 """ build_csv.py
-Código para gerar CSV que mapeia IMAGEM e LABEL a partir de um diretório contendo arquivos .hea e .png
+Build a table mapping ECG image files to labels from a directory containing .hea headers and .png images.
 """
 
 import os
