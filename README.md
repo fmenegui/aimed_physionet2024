@@ -4,6 +4,13 @@
 
 [Paper](https://doi.org/10.22489/CinC.2024.398) | [Challenge](https://moody-challenge.physionet.org/2024/) | [Model weights](https://huggingface.co/fmenegui/cinc_of5)
 
+New AIMED-owned code is offered under [PolyForm Noncommercial 1.0.0](LICENSE).
+AIMED's covered checkpoint rights and the documentation are offered under
+[CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt). Commercial use outside the licenses' expressly
+permitted purposes requires separate authorization. The
+[licensing terms](LICENSING.md) define the scope and preserve valid earlier
+permissions.
+
 This repository makes the AIMED method easier to use and train. A ConvNeXt-Tiny
 classifies an ECG page directly into 11 possible findings. The five fold models
 are combined by averaging their sigmoid probabilities. No signal digitization
@@ -204,12 +211,13 @@ identified checkpoints are offered under
 [CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt). Noncommercial evaluation is permitted
 within the respective grants, subject to their conditions.
 
-A local, nonclinical test using public or synthetic images can still have a
-commercial purpose. Evaluation directed toward product development may require
-separate authorization before any sale or clinical deployment, unless an
-applicable existing permission already covers it. The
-[licensing guide](LICENSING.md#local-evaluation-and-product-development) explains
-the separate code and checkpoint terms.
+The checkpoint CC BY-NC offer does not authorize evaluations primarily directed
+toward commercial product development, commercial inference services or
+commercial product integration. Obtain separate authorization for those uses
+unless an applicable existing permission already covers them. A local,
+nonclinical test using public or synthetic images can still have a commercial
+purpose. The [licensing guide](LICENSING.md#local-evaluation-and-product-development)
+explains the separate code and checkpoint terms.
 
 Earlier BSD, MIT and other valid permissions remain in force. These new offers
 do not withdraw those rights or establish the terms of earlier distributions.

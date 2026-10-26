@@ -1,4 +1,4 @@
-# Trained checkpoint license
+# Noncommercial checkpoint license
 
 Effective date: 2026-10-26.
 
@@ -10,14 +10,19 @@ offered under Creative Commons Attribution-NonCommercial 4.0 International
 The full text is included in this repository at `LICENSES/CC-BY-NC-4.0.txt`
 and in downloaded checkpoint folders as `LICENSE.txt`.
 
-Noncommercial copying, use, sharing and adaptation are permitted with the
-required attribution, license link and indication of modifications. Uses
-primarily intended for commercial advantage or monetary compensation require
-a separate authorization from the relevant rights holders.
+This offer permits noncommercial copying, use, sharing and adaptation.
+When sharing covered material, retain the required attribution, license
+information and indication of modifications.
 
-Attribute AIMED and the paper listed in `CITATION.cff`, link to this repository
-and the license, and identify any changes to the checkpoints. Attribution does
-not imply endorsement.
+Commercial inference services, commercial product integration and feasibility
+evaluations primarily intended to develop a commercial product are not
+authorized by this CC BY-NC offer. Obtain separate authorization from the
+relevant rights holders before those uses, unless an applicable existing
+permission already covers them.
+
+When sharing covered checkpoints, attribute AIMED and the paper listed in
+`CITATION.cff`, link to this repository and the license, and identify any
+changes. Attribution does not imply endorsement.
 
 This offer does not revoke or narrow any rights already granted to existing
 recipients, including any applicable permissions associated with the 2024

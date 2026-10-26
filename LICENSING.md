@@ -2,6 +2,12 @@
 
 Effective date for the new license offers: 2026-10-26.
 
+This maintained release uses noncommercial licenses for new AIMED-owned
+software contributions, documentation and the covered checkpoint rights.
+Commercial rights outside the licenses' expressly permitted purposes are
+reserved for separate authorization. These offers preserve valid earlier
+permissions and third-party terms, as explained below.
+
 ## New software contributions
 
 New AIMED-owned software contributions in this maintained release are offered
@@ -36,9 +42,12 @@ respective software and checkpoint grants, subject to their conditions. Local
 execution, public or synthetic inputs and a nonclinical setting do not by
 themselves establish a noncommercial purpose.
 
-An internal feasibility test directed toward a commercial product can fall
-outside the noncommercial checkpoint offer before any sale or clinical
-deployment. CC's [definition and guidance](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses)
+The CC BY-NC checkpoint offer does not authorize commercial inference services,
+commercial product integration or feasibility evaluations primarily intended
+to develop a commercial product. These uses require separate authorization,
+unless an applicable existing permission already covers them, even before a
+sale or clinical deployment. CC's
+[definition and guidance](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses)
 address the intended advantage and circumstances, rather than the user's
 organization type alone.
 
