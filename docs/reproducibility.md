@@ -12,10 +12,19 @@ The paper is [Dias et al., CinC 2024](https://doi.org/10.22489/CinC.2024.398).
 The public release is derived from the source snapshot. It is not represented
 as an unmodified archive of the official evaluated entry.
 
-If you found the older `fmenegui/cinc_of2` code, see the
-[legacy-source comparison](evaluation-faq.md#legacy-code).
-That inspected configuration and Dockerfile differ from the source and pinned
-artifact combination used by this tutorial.
+## Legacy code
+
+The older `fmenegui/cinc_of2` repository contains a different source snapshot.
+Its [configuration at `384e3bb3e82affeb167983b9219c6447b4548c3d`](https://github.com/fmenegui/cinc_of2/blob/384e3bb3e82affeb167983b9219c6447b4548c3d/config_dx.py)
+sets ten folds, batch size 32 and CLAHE preprocessing. Its
+[Dockerfile at the same commit](https://github.com/fmenegui/cinc_of2/blob/384e3bb3e82affeb167983b9219c6447b4548c3d/Dockerfile)
+downloads `fmenegui/cinc_of1` and `fmenegui/cinc_of_pretrained`.
+
+This maintained release derives from `fmenegui/cinc_of5`. It uses five folds,
+batch size 16 for training and the [documented inference transforms](inference.md#preprocessing-and-aggregation).
+Use its loader, manifest and pinned artifacts together. Compatibility with
+other combinations of legacy code, transforms and weight files has not been
+established.
 
 ## Published pipeline
 
@@ -54,7 +63,10 @@ The original Dockerfile downloaded these same repository names, without fixing
 revisions. The inspected source does not record which Hub commit was present
 during official scoring. These are pinned public artifacts available at release
 preparation time. Their exact identity with the bytes scored in 2024 is not
-independently established by the available source.
+independently established by the available source. Confirming that identity
+requires checkpoint hashes from the scored submission or an equivalent archived
+artifact record. This maintained release has not been re-evaluated on the
+official hidden test.
 
 ## Source and paper differences
 
@@ -102,7 +114,7 @@ separately and linked to the corresponding checkpoint hashes.
 These changes improve usability and address observed implementation issues.
 They do not establish a new Challenge score.
 
-## What can be reproduced
+## Reproducibility scope
 
 | Goal | Supported by this release? |
 | --- | --- |

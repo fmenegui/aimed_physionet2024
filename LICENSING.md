@@ -16,34 +16,38 @@ maintainers through this repository for commercial licensing.
 The license text is unmodified. Its required attribution notices are provided
 separately in NOTICE.
 
-## Local evaluation and product development
-
-Local execution, public or synthetic inputs and a nonclinical setting do not
-by themselves make an evaluation noncommercial. The purpose of the use matters.
-An evaluation aimed at commercial product feasibility or development can fall
-outside the noncommercial checkpoint offer, even before a product is sold.
-CC's [definition and guidance](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses)
-address the intended advantage and circumstances, rather than the user's
-organization type alone.
-
-For noncommercial evaluation, follow the separate software and checkpoint
-terms. For product-directed evaluation, establish authorization with the
-relevant rights holders unless an applicable existing permission covers it.
-PolyForm's expressly permitted purposes must be read in its own text. They do
-not enlarge the separate CC BY-NC checkpoint grant. Prior permissions remain
-in force as described below. See the [evaluation FAQ](docs/evaluation-faq.md)
-for practical examples.
-
 ## Documentation and trained artifacts
 
 The documentation and AIMED's copyright interests in the checkpoint artifacts
 identified in [weights_manifest.json](weights_manifest.json) are offered under
-[CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt). Retain attribution, provide the license
-link and indicate changes. Commercial use requires separate authorization.
+[CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt). When sharing covered material, retain
+attribution, provide the license link and indicate changes. Commercial use
+outside an applicable existing permission requires separate authorization.
 
 See [MODEL_LICENSE.md](MODEL_LICENSE.md) for the exact checkpoint scope and
 prior-grant exceptions. These terms do not relicense source datasets or
-third-party pretrained parameters.
+third-party pretrained parameters. The weight downloader places the checkpoint
+license, scope notice and attribution alongside the downloaded files.
+
+## Local evaluation and product development
+
+Noncommercial research, evaluation and experimentation are permitted within the
+respective software and checkpoint grants, subject to their conditions. Local
+execution, public or synthetic inputs and a nonclinical setting do not by
+themselves establish a noncommercial purpose.
+
+An internal feasibility test directed toward a commercial product can fall
+outside the noncommercial checkpoint offer before any sale or clinical
+deployment. CC's [definition and guidance](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses)
+address the intended advantage and circumstances, rather than the user's
+organization type alone.
+
+For product-directed evaluation, establish authorization with the relevant
+rights holders unless an applicable existing permission covers it. PolyForm's
+expressly permitted purposes must be read in its own text. They do not enlarge
+the separate CC BY-NC checkpoint grant. Earlier permissions remain in force
+as described below. This documentation makes no additional commercial-evaluation
+grant.
 
 ## Historical 2024 code and prior permissions
 

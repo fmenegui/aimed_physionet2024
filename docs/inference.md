@@ -1,5 +1,18 @@
 # Inference tutorial
 
+The released inference ensemble consists of five checkpoints from
+[`fmenegui/cinc_of5`](https://huggingface.co/fmenegui/cinc_of5), revision
+`1ab856738289e4c0b76c4df323ef33cfdc45f1f2`: `model_fold0.ckpt`,
+`model_fold1.ckpt`, `model_fold2.ckpt`, `model_fold3.ckpt` and
+`model_fold4.ckpt`. Their sizes, SHA-256 values and corresponding inference
+settings are recorded in [`weights_manifest.json`](../weights_manifest.json).
+The downloader retrieves that revision and checks each file.
+
+The 0.817 score is the historical Challenge result. The available archive does
+not independently establish that these files are byte-for-byte identical to
+the officially scored files. Artifact provenance and differences from the
+submitted code are documented in [reproducibility](reproducibility.md).
+
 ## One image
 
 After installation:
@@ -17,6 +30,20 @@ The outputs are the [11 final Challenge classes](models.md#final-challenge-class
 All five models predict the same classes. The separate 13-output pretraining
 checkpoint is used only to initialize training and cannot be substituted here.
 For a comparison of the two downloads, see [classes and model weights](models.md).
+
+For an installation check without patient data, generate artificial traces and
+run the same prediction script:
+
+```bash
+python download_weights.py --kind ensemble
+python examples/make_demo_data.py --output data/demo --records 20
+python predict_image.py -i data/demo/demo000-0.png -m model -o outputs/prediction.json --device cpu
+```
+
+The demo assigns arbitrary labels and verifies software execution only. Its
+metrics do not measure diagnostic performance. Inference on an existing image
+requires neither the original training images nor private InCor data. Preserve
+the code commit and weight manifest alongside the JSON output.
 
 ## Python
 

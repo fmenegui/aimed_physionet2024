@@ -53,7 +53,7 @@ The [single-image CLI](inference.md#one-image) writes named probabilities and
 selected labels to JSON. The Python API exposes the same class order through
 `aimed.model.CLASSES`.
 
-## What is a checkpoint?
+## Checkpoints
 
 A checkpoint is a saved set of learned network parameters. It allows an already
 trained model to be used, or its parameters to initialize another training run.
@@ -78,7 +78,7 @@ requires 11-output models and rejects the 13-output checkpoint.
 
 ## ECG pretraining checkpoint
 
-### What it provides
+### Role in training
 
 The original Challenge configuration loads this checkpoint before final PTB-XL
 training. It provides ECG features learned before that final stage. The
@@ -121,7 +121,7 @@ verified output-index mapping for the released checkpoint.**
 | 2nd/3rd/Adv AV block | Second-degree, third-degree or advanced atrioventricular block |
 | `VT / VF` | Ventricular tachycardia or ventricular fibrillation |
 
-### What is known about the 13 checkpoint outputs?
+### Checkpoint output metadata
 
 Direct inspection confirms `model.head.fc.weight` has shape **`(13, 768)`**
 and `model.head.fc.bias` has shape **`(13,)`**. The original configuration also
@@ -140,7 +140,7 @@ Until then, the manifest records their class list as `null`, rather than
 assigning unverified names. This checkpoint is provided for initialization,
 not for interpreting its original 13 predictions through this release.
 
-### How 13 outputs become 11 during training
+### Transfer to the Challenge task
 
 For every fold, [`training_model()`](../aimed/model.py) performs these steps:
 

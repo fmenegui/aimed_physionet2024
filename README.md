@@ -9,24 +9,26 @@ classifies an ECG page directly into 11 possible findings. The five fold models
 are combined by averaging their sigmoid probabilities. No signal digitization
 is required.
 
-For a local evaluation, start with the [evaluation FAQ](docs/evaluation-faq.md):
-which weights to use, what the historical 0.817 score establishes, how to run
-inference, and the separate terms for code and checkpoints.
-
 The code is adapted from `fmenegui/cinc_of5`, commit
 `00da6ef97f52f475da86895c286538d3fa8f7c4b`. This is a maintained public release,
-with documented changes to the submitted implementation. The score below is a
-historical Challenge result, not a new evaluation of this release.
+with documented changes to the submitted implementation. The
+[inference tutorial](docs/inference.md) provides single-image, Python and
+Challenge-format examples using public or artificial images. Private InCor
+patient data are not needed to run the classifier.
 
 | Published evaluation | Macro F1 |
 | --- | ---: |
 | Challenge hidden test, classification | 0.817 |
 | Internal five-fold cross-validation, mean ± SD | 0.698 ± 0.022 |
 
-The original paper reports these results on different evaluation sets. They are
-not interchangeable. See [reproducibility](docs/reproducibility.md).
+The original paper reports these results on different evaluation sets. The
+0.817 score belongs to the 2024 entry. This maintained release has not been
+evaluated on that hidden set. The archived source did not pin weight revisions,
+so exact identity between the downloadable files and the officially scored files
+is unverified. The [reproducibility record](docs/reproducibility.md) explains
+the artifact provenance and implementation changes.
 
-## What does the final model classify?
+## Classes
 
 Each model produces **11 independent scores**, in the following fixed order.
 This is multilabel classification: an ECG can receive several labels or none.
@@ -50,22 +52,35 @@ averaged, and labels are selected when their score is strictly greater than 0.5.
 See [classes and model weights](docs/models.md) for the exact training-label
 rules, including the Acute MI / Old MI distinction and grouped rhythm labels.
 
-## Which weights should I download?
+## Model weights
 
 Model weights are learned neural-network parameters saved in a `.ckpt` file.
-There are two different downloads:
+The released ensemble provides inference after the final Challenge fine-tuning.
+The ECG-pretrained checkpoint supplies the starting parameters for a new
+training run.
 
-| Your goal | Command | Files | Outputs |
-| --- | --- | --- | --- |
-| Classify ECG images with the released model | `python download_weights.py --kind ensemble` | `model/model_fold0.ckpt` through `model_fold4.ckpt` | The 11 classes above |
-| Start a new Challenge training run with `--init ecg` | `python download_weights.py --kind pretrained` | `pretrained_model/model_fold0.ckpt` | 13 original outputs, replaced by a new 11-class head before training |
+| Artifact | Hugging Face repository and pinned revision | Files |
+| --- | --- | --- |
+| Final five-model ensemble | [`fmenegui/cinc_of5`](https://huggingface.co/fmenegui/cinc_of5), `1ab856738289e4c0b76c4df323ef33cfdc45f1f2` | `model_fold0.ckpt` through `model_fold4.ckpt`, each with 11 outputs |
+| ECG-pretrained initialization | [`fmenegui/pretrained_cinc_of5`](https://huggingface.co/fmenegui/pretrained_cinc_of5), `831f9bdb728a502f214831a26d0457738645ffc3` | `model_fold0.ckpt`, with 13 original outputs |
 
-The ECG-pretrained checkpoint transfers previously learned ECG features into
-each new fold. **Its original 13 class names and output order have not been
-recovered from the available files.** The paper lists 12 InCor-EMG categories,
-which do not establish a 13-output checkpoint mapping. This limitation and the
-reported pretraining categories are explained in the [model guide](docs/models.md#ecg-pretraining-checkpoint).
-Inference needs only the final ensemble. Keep the two weight folders separate.
+[`weights_manifest.json`](weights_manifest.json) records every filename, size
+and SHA-256 together with the inference preprocessing, class order and
+threshold. The downloader uses these pinned revisions and verifies the files.
+
+Inference loads the five ensemble files into `model/`. Training with
+`--init ecg` loads `pretrained_model/model_fold0.ckpt`, retains its learned
+feature extractor and replaces the 13-output head with a new 11-output head
+before fine-tuning each fold. Keep the two weight folders separate.
+
+The original 13 class names and output order have not been recovered from the
+available files. The paper lists 12 InCor-EMG categories, which do not establish
+a mapping for those 13 outputs. The [model guide](docs/models.md#ecg-pretraining-checkpoint)
+documents the reported categories and missing metadata.
+
+Use this maintained code and its manifest together with the pinned artifacts.
+The older `fmenegui/cinc_of2` configuration uses different training settings and
+transforms, as described in the [source comparison](docs/reproducibility.md#legacy-code).
 
 ## 1. Install
 
@@ -113,9 +128,12 @@ The download is about 557 MB. Five checkpoint files are downloaded from a pinned
 Hugging Face revision and verified with SHA-256. Git LFS and a Hugging Face token
 are not required. Inference does not need the pretraining checkpoint.
 
-The JSON includes one probability per class, the selected labels, threshold
+Loading and preprocessing are implemented in [`aimed/model.py`](aimed/model.py)
+and described in the [inference tutorial](docs/inference.md). The JSON includes
+one probability per class in the order above, the selected labels, threshold
 `0.5`, and the checkpoint paths. Findings are not mutually exclusive. These
-scores have not been calibrated as clinical probabilities.
+scores have not been calibrated as clinical probabilities. Preserve the code
+commit and weight manifest with your evaluation results.
 
 For an installation check without patient data:
 
@@ -164,7 +182,6 @@ evaluation and hardware notes.
 
 | Guide | Contents |
 | --- | --- |
-| [Evaluation FAQ](docs/evaluation-faq.md) | Three direct answers about released weights, inference and permitted uses, including the legacy `cinc_of2` repository |
 | [Classes and model weights](docs/models.md) | All 11 final outputs, pretraining stages, checkpoint roles and the missing 13-class mapping |
 | [Data](docs/data.md) | Required files, labels, PTB-XL conversion, image generation |
 | [Training](docs/training.md) | Five-fold training, CLI options, checkpoints, validation |
@@ -180,15 +197,24 @@ data alone. Fine-tuning from the released checkpoint and inference are provided.
 
 ## License
 
-New AIMED-owned code is available under [PolyForm Noncommercial 1.0.0](LICENSE)
-with the attribution notices in [NOTICE](NOTICE). Documentation and AIMED's rights
-in the identified checkpoint artifacts are offered under CC BY-NC 4.0.
-Commercial use requires separate authorization unless an existing permission
-or an expressly permitted purpose applies.
+New AIMED-owned software contributions are offered under
+[PolyForm Noncommercial 1.0.0](LICENSE), with the required notices in
+[NOTICE](NOTICE). Documentation and AIMED's copyright interests in the six
+identified checkpoints are offered under
+[CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt). Noncommercial evaluation is permitted
+within the respective grants, subject to their conditions.
 
-Earlier BSD or other permissions are preserved. The historical 2024 submission
-is not represented as becoming commercial-use prohibited. Read
-[LICENSING.md](LICENSING.md) and [MODEL_LICENSE.md](MODEL_LICENSE.md) for the scope.
+A local, nonclinical test using public or synthetic images can still have a
+commercial purpose. Evaluation directed toward product development may require
+separate authorization before any sale or clinical deployment, unless an
+applicable existing permission already covers it. The
+[licensing guide](LICENSING.md#local-evaluation-and-product-development) explains
+the separate code and checkpoint terms.
+
+Earlier BSD, MIT and other valid permissions remain in force. These new offers
+do not withdraw those rights or establish the terms of earlier distributions.
+Read [LICENSING.md](LICENSING.md) and [MODEL_LICENSE.md](MODEL_LICENSE.md) for
+scope, attribution and commercial authorization.
 
 ## Cite
 
