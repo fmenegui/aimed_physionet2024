@@ -72,8 +72,9 @@ python run_model.py -d data/heldout_hidden -m model -o outputs/predictions -v
 python evaluate_model.py -d data/heldout_reference -o outputs/predictions -s outputs/scores.txt
 ```
 
-Keep input and output paths distinct. The evaluator is retained from the source
-snapshot. Its output reports SNR as unavailable for classification-only outputs.
+Keep input and output paths distinct. The evaluator is based on the source
+snapshot and skips waveform alignment when no digitization output exists.
+Its output reports SNR as unavailable for classification-only outputs.
 The score file is plain text, even if a `.csv` extension is chosen.
 
 ## Troubleshooting

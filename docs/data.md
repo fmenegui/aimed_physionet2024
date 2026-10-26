@@ -58,9 +58,14 @@ These downloads are separate from the model weights. Check available storage
 before generating large image collections. Keep source data and outputs outside
 version control.
 
-For bounded software validation, `python scripts/fetch_tutorial_fixture.py
---output data/tutorial` fetches 20 public records and 100 annotation rows instead
-of the full datasets. Its manifest records separate patient groups and input
+For bounded software validation, the following command fetches 20 public records
+and 100 annotation rows instead of the full datasets:
+
+```bash
+python scripts/fetch_tutorial_fixture.py --output data/tutorial
+```
+
+Its manifest records separate patient groups and input
 hashes. Replace the data path prefixes in the following commands with
 `data/tutorial` when using that fixture. It is deliberately not a clinical
 benchmark.

@@ -7,10 +7,13 @@ from types import SimpleNamespace
 
 import pandas as pd
 import pytest
+import numpy as np
+import wfdb
 
 import download_weights
 import prepare_image_data
 import prepare_ptbxl_data
+import evaluate_model
 
 
 @pytest.fixture
@@ -76,6 +79,16 @@ def test_standard_wrapper_can_disable_worker_processes(monkeypatch):
     assert args.num_workers == 0
 
 
+def test_resized_images_preserve_nested_paths(tmp_path):
+    from media.train.prepare_from_config import resized_image_path
+    original = tmp_path / "input with spaces"
+    resized = tmp_path / "cache"
+    image = original / "nested" / "record-0.png"
+    mapped = resized_image_path(str(image), str(resized), str(original))
+    assert Path(mapped) == resized / "nested" / "record-0.png"
+    assert Path(mapped).is_relative_to(resized)
+
+
 def test_downloader_integrity_cache_and_license_notices(tmp_path, monkeypatch):
     data = b"checkpoint test bytes"
     manifest = tmp_path / "manifest.json"
@@ -115,3 +128,21 @@ def test_failed_weight_download_is_not_accepted(tmp_path, monkeypatch):
         download_weights.download("ensemble", output)
     assert not (output / "model_fold0.ckpt").exists()
     assert not list(output.glob("*.part"))
+
+
+def test_classification_evaluation_skips_absent_digitization(tmp_path, monkeypatch):
+    reference, prediction = tmp_path / "reference", tmp_path / "prediction"
+    reference.mkdir()
+    prediction.mkdir()
+    wfdb.wrsamp("record", fs=500, units=["mV"], sig_name=["I"],
+                p_signal=np.linspace(0, 1, 20)[:, None], fmt=["16"],
+                write_dir=str(reference))
+    header = reference / "record.hea"
+    header.write_text(header.read_text() + "# Labels: NORM\n")
+    (prediction / "record.hea").write_text(header.read_text())
+    def no_alignment(*args, **kwargs):
+        raise AssertionError("Missing digitization must not enter signal alignment")
+    monkeypatch.setattr(evaluate_model, "align_signals", no_alignment)
+    scores = evaluate_model.evaluate_model(str(reference), str(prediction))
+    assert np.isnan(scores[0])
+    assert scores[-1] == pytest.approx(1.0)

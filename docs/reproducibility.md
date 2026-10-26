@@ -83,6 +83,9 @@ separately and linked to the corresponding checkpoint hashes.
 - Allow the standard training wrapper to disable multiprocessing through
   `AIMED_NUM_WORKERS=0` on restricted hosts.
 - Provide a tested generator environment and bounded public-data fixture helper.
+- Skip pointless all-NaN waveform alignment when evaluating classification-only
+  output against reference records that include real waveforms.
+- Use native relative paths for the resized-image cache on Windows and POSIX.
 
 These changes improve usability and address observed implementation issues.
 They do not establish a new Challenge score.

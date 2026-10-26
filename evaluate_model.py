@@ -85,7 +85,9 @@ def evaluate_model(folder_ref, folder_est, no_shift=False, extra_scores=False):
                 signal_est = reorder_signal(signal_est, channels_est, channels_ref)
 
             else:
-                signal_est = np.nan*np.ones(np.shape(signal_ref))
+                # Classification-only entries have no digitized waveform.
+                # All-NaN metrics would be ignored by nanmean anyway.
+                continue
 
             # Compute the metrics.
             channels = channels_ref
