@@ -1,0 +1,57 @@
+name: Tutorial integration
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OMP_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify public clone command
+        run: git clone --depth 1 https://github.com/fmenegui/aimed_physionet2024.git /tmp/aimed-public-clone
+      - name: Download and verify published ensemble
+        run: python download_weights.py --kind ensemble
+      - name: Build documented CUDA runtime image
+        run: docker build -t aimed-physionet2024 .
+      - name: Check container dependencies
+        run: docker run --rm aimed-physionet2024 python -m pip check
+      - name: Create artificial input
+        run: |
+          mkdir -p data outputs
+          docker run --rm -v "$PWD/data:/challenge/data" aimed-physionet2024 python examples/make_demo_data.py --output data/demo --records 20
+          cp data/demo/demo000-0.png data/ecg.png
+      - name: Run documented image inference command
+        run: docker run --rm -v "$PWD/model:/challenge/model" -v "$PWD/data:/challenge/data:ro" -v "$PWD/outputs:/challenge/outputs" aimed-physionet2024 python predict_image.py -i data/ecg.png -m model -o outputs/prediction.json
+      - name: Run Challenge folder inference
+        run: docker run --rm -v "$PWD/model:/challenge/model" -v "$PWD/data:/challenge/data:ro" -v "$PWD/outputs:/challenge/outputs" aimed-physionet2024 python run_model.py -d data/demo -m model -o outputs/challenge -v
+      - name: Train and save a container checkpoint
+        run: docker run --rm -v "$PWD/data:/challenge/data:ro" -v "$PWD/outputs:/challenge/outputs" aimed-physionet2024 python train.py -d data/demo -m outputs/training --init none --fold 0 --epochs 1 --size 64 --batch-size 2 --num-workers 0 --device cpu --fast-dev-run --quiet
+      - name: Validate inference output
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          p = json.loads(Path('outputs/prediction.json').read_text())
+          assert len(p['probabilities']) == 11
+          assert len(p['checkpoints']) == 5
+          assert all(math.isfinite(v) and 0 <= v <= 1 for v in p['probabilities'].values())
+          assert len(list(Path('outputs/challenge').glob('*.hea'))) == 20
+          assert Path('outputs/training/model/model_fold0.ckpt').is_file()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docker-tutorial-evidence
+          path: |
+            outputs/prediction.json
+            outputs/challenge/*.hea
+            outputs/training/run_config.json
+            outputs/training/metrics.json
+            outputs/training/output.log
