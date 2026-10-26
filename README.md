@@ -54,7 +54,8 @@ python -m pip install --no-deps -e media
 ```
 
 On Windows, activate with `.venv\Scripts\activate` and use `--num-workers 0`
-for initial training checks. The automated workflow targets Linux.
+for initial training checks. The automated workflow covers clean virtual
+environments on Linux and Windows.
 
 ## 2. Classify an image
 

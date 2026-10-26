@@ -23,6 +23,19 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
+      - name: Create the documented virtual environment
+        shell: bash
+        run: |
+          python -m venv .venv
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          binary = Path('.venv') / ('Scripts' if os.name == 'nt' else 'bin')
+          with open(os.environ['GITHUB_PATH'], 'a') as file:
+              file.write(str(binary.resolve()) + '\n')
+          PY
+      - name: Verify virtual environment activation
+        run: python -c "import sys; assert sys.prefix != sys.base_prefix"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cpu
       - run: python -m pip install -r requirements-dev.txt
