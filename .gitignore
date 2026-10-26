@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+*.ckpt
+*.sav
+*.part
+data/
+model/
+pretrained_model/
+runs/
+outputs/
+logs/
+cache/
+lightning_logs/
+.ipynb_checkpoints/
