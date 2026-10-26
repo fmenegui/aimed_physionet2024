@@ -16,6 +16,24 @@ maintainers through this repository for commercial licensing.
 The license text is unmodified. Its required attribution notices are provided
 separately in NOTICE.
 
+## Local evaluation and product development
+
+Local execution, public or synthetic inputs and a nonclinical setting do not
+by themselves make an evaluation noncommercial. The purpose of the use matters.
+An evaluation aimed at commercial product feasibility or development can fall
+outside the noncommercial checkpoint offer, even before a product is sold.
+CC's [definition and guidance](https://creativecommons.org/faq/#does-my-use-violate-the-noncommercial-clause-of-the-licenses)
+address the intended advantage and circumstances, rather than the user's
+organization type alone.
+
+For noncommercial evaluation, follow the separate software and checkpoint
+terms. For product-directed evaluation, establish authorization with the
+relevant rights holders unless an applicable existing permission covers it.
+PolyForm's expressly permitted purposes must be read in its own text. They do
+not enlarge the separate CC BY-NC checkpoint grant. Prior permissions remain
+in force as described below. See the [evaluation FAQ](docs/evaluation-faq.md)
+for practical examples.
+
 ## Documentation and trained artifacts
 
 The documentation and AIMED's copyright interests in the checkpoint artifacts

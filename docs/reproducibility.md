@@ -12,6 +12,11 @@ The paper is [Dias et al., CinC 2024](https://doi.org/10.22489/CinC.2024.398).
 The public release is derived from the source snapshot. It is not represented
 as an unmodified archive of the official evaluated entry.
 
+If you found the older `fmenegui/cinc_of2` code, see the
+[legacy-source comparison](evaluation-faq.md#legacy-code).
+That inspected configuration and Dockerfile differ from the source and pinned
+artifact combination used by this tutorial.
+
 ## Published pipeline
 
 1. Start from an ImageNet-pretrained ConvNeXt.

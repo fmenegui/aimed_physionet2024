@@ -9,6 +9,10 @@ classifies an ECG page directly into 11 possible findings. The five fold models
 are combined by averaging their sigmoid probabilities. No signal digitization
 is required.
 
+For a local evaluation, start with the [evaluation FAQ](docs/evaluation-faq.md):
+which weights to use, what the historical 0.817 score establishes, how to run
+inference, and the separate terms for code and checkpoints.
+
 The code is adapted from `fmenegui/cinc_of5`, commit
 `00da6ef97f52f475da86895c286538d3fa8f7c4b`. This is a maintained public release,
 with documented changes to the submitted implementation. The score below is a
@@ -160,6 +164,7 @@ evaluation and hardware notes.
 
 | Guide | Contents |
 | --- | --- |
+| [Evaluation FAQ](docs/evaluation-faq.md) | Three direct answers about released weights, inference and permitted uses, including the legacy `cinc_of2` repository |
 | [Classes and model weights](docs/models.md) | All 11 final outputs, pretraining stages, checkpoint roles and the missing 13-class mapping |
 | [Data](docs/data.md) | Required files, labels, PTB-XL conversion, image generation |
 | [Training](docs/training.md) | Five-fold training, CLI options, checkpoints, validation |
