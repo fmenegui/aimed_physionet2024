@@ -1,0 +1,85 @@
+{
+  "format_version": 1,
+  "artifacts": {
+    "ensemble": {
+      "repository": "fmenegui/cinc_of5",
+      "revision": "1ab856738289e4c0b76c4df323ef33cfdc45f1f2",
+      "directory": "model",
+      "files": [
+        {
+          "name": "model_fold0.ckpt",
+          "size": 111420224,
+          "sha256": "0b833109e5f83214659e26a39281108e3034820d891d92a558180f44e4c9aa1e"
+        },
+        {
+          "name": "model_fold1.ckpt",
+          "size": 111420224,
+          "sha256": "bb3fea13c57cad95dbf08103235b8551407e2d3ee74e34843542cd4bc9e3eeec"
+        },
+        {
+          "name": "model_fold2.ckpt",
+          "size": 111420224,
+          "sha256": "f9a12763ec6557d1b15884d82031d0dfc4e000235ed6dbdfdbaa213c4a58c568"
+        },
+        {
+          "name": "model_fold3.ckpt",
+          "size": 111420224,
+          "sha256": "31c3f42a0db50ad13a45b73f4bd34cea33438b70df4c86e85e6601b906c4d168"
+        },
+        {
+          "name": "model_fold4.ckpt",
+          "size": 111420224,
+          "sha256": "d9c36d92f47f2fbad5c17802cec006f314b5ad6d1d074f9e4b843852d3cbf486"
+        }
+      ]
+    },
+    "pretrained": {
+      "repository": "fmenegui/pretrained_cinc_of5",
+      "revision": "831f9bdb728a502f214831a26d0457738645ffc3",
+      "directory": "pretrained_model",
+      "files": [
+        {
+          "name": "model_fold0.ckpt",
+          "size": 111432194,
+          "sha256": "c10469748d2dc94769f3e7ad48917086f132b09ddf7bea2a502839e064c42ecc"
+        }
+      ]
+    }
+  },
+  "inference": {
+    "architecture": "convnext_tiny_in22k",
+    "classes": [
+      "NORM",
+      "Acute MI",
+      "Old MI",
+      "STTC",
+      "CD",
+      "HYP",
+      "PAC",
+      "PVC",
+      "AFIB/AFL",
+      "TACHY",
+      "BRADY"
+    ],
+    "size": [
+      384,
+      384
+    ],
+    "resize": "Pillow LANCZOS, stretch",
+    "grayscale": "three-channel, deterministic in public release",
+    "normalization_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "normalization_std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "threshold": 0.5,
+    "comparison": ">",
+    "ensemble": "mean of sigmoid probabilities",
+    "multiple_images": "first image in header"
+  }
+}

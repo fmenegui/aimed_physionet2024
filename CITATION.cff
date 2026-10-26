@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "Please cite the AIMED CinC 2024 paper when using this work."
+type: software
+title: "AIMED: ECG image classification for the PhysioNet Challenge 2024"
+version: 0.1.0
+repository-code: "https://github.com/fmenegui/aimed_physionet2024"
+authors:
+  - family-names: Dias
+    given-names: Felipe Meneguitti
+  - family-names: Ribeiro
+    given-names: Estela
+  - family-names: Soares
+    given-names: Quenaz Bezerra
+  - family-names: Krieger
+    given-names: Jose Eduardo
+  - family-names: Gutierrez
+    given-names: Marco Antonio
+preferred-citation:
+  type: conference-paper
+  title: "Image-Based Electrocardiogram Classification Using Pre-trained ConvNext"
+  authors:
+    - family-names: Dias
+      given-names: Felipe M
+    - family-names: Ribeiro
+      given-names: Estela
+    - family-names: Soares
+      given-names: Quenaz B
+    - family-names: Krieger
+      given-names: Jose E
+    - family-names: Gutierrez
+      given-names: Marco A
+  collection-title: Computing in Cardiology
+  year: 2024
+  volume: 51
+  doi: 10.22489/CinC.2024.398
