@@ -8,6 +8,48 @@ on:
       - '.github/workflows/**'
   workflow_dispatch:
 jobs:
+  cuda-wheel-install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OMP_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Execute documented CUDA wheel installation
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cu118
+          .venv/bin/python -m pip install -r requirements.txt
+          .venv/bin/python -m pip install --no-deps -e media
+          .venv/bin/python -m pip check
+      - name: Verify CUDA build without claiming GPU execution
+        run: |
+          .venv/bin/python - <<'PY'
+          import json, torch
+          from pathlib import Path
+          assert torch.version.cuda == '11.8'
+          Path('outputs').mkdir(exist_ok=True)
+          Path('outputs/cuda-install.json').write_text(json.dumps({
+              'torch': torch.__version__, 'compiled_cuda': torch.version.cuda,
+              'physical_gpu_available': torch.cuda.is_available(),
+              'scope': 'Installation and CPU inference, not physical GPU execution'
+          }, indent=2))
+          PY
+      - name: Verify inference with the CUDA wheel on a CPU host
+        run: |
+          .venv/bin/python download_weights.py --kind ensemble
+          .venv/bin/python examples/make_demo_data.py --output data/demo --records 1
+          .venv/bin/python predict_image.py -i data/demo/demo000-0.png -m model -o outputs/cuda-wheel-prediction.json --device cpu
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cuda-wheel-install-evidence
+          path: outputs/*.json
   docker:
     runs-on: ubuntu-latest
     timeout-minutes: 40
