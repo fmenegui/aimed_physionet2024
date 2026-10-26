@@ -5,8 +5,10 @@ Effective date: 2026-10-26.
 AIMED's copyright interests in the six trained checkpoint artifacts identified
 by repository, revision, filename and SHA-256 in `weights_manifest.json` are
 offered under Creative Commons Attribution-NonCommercial 4.0 International
-(CC BY-NC 4.0). The full terms are in
-[`LICENSES/CC-BY-NC-4.0.txt`](LICENSES/CC-BY-NC-4.0.txt).
+(CC BY-NC 4.0). See the
+[canonical license page](https://creativecommons.org/licenses/by-nc/4.0/).
+The full text is included in this repository at `LICENSES/CC-BY-NC-4.0.txt`
+and in downloaded checkpoint folders as `LICENSE.txt`.
 
 Noncommercial copying, use, sharing and adaptation are permitted with the
 required attribution, license link and indication of modifications. Uses

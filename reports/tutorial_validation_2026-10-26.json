@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "validation_date": "2026-10-26",
+  "tested_commit": "9ab1fb4bfb34f087cbe920fd4f9dbaca15850e01",
+  "purpose": "Functional tutorial and repository validation. No new clinical performance claim.",
+  "local_environment": {
+    "python": "3.12.14",
+    "device": "cpu",
+    "versions": {
+      "torch": "2.2.2+cpu",
+      "torchvision": "0.17.2+cpu",
+      "timm": "0.9.12",
+      "lightning": "2.1.3",
+      "albumentations": "1.3.1",
+      "numpy": "1.26.4",
+      "scikit-learn": "1.4.2"
+    }
+  },
+  "fixture": {
+    "source_versions": {
+      "PTB-XL": "1.0.3",
+      "PTB-XL+": "1.0.1"
+    },
+    "metadata_rows": 100,
+    "training_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11
+    ],
+    "heldout_ids": [
+      8,
+      17,
+      22,
+      30,
+      32,
+      41,
+      45,
+      48,
+      49,
+      50
+    ],
+    "patient_disjoint": true
+  },
+  "ci": {
+    "software_tests": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740649",
+    "tutorial_integration": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740437",
+    "conclusion": "success"
+  },
+  "checks": [
+    {
+      "id": "public_clone",
+      "result": "passed",
+      "scope": "Exact public Git clone command on a hosted runner"
+    },
+    {
+      "id": "installation_cpu",
+      "result": "passed",
+      "evidence": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740649",
+      "scope": "Fresh virtual environments on Linux Python 3.10/3.11/3.12 and Windows Python 3.11"
+    },
+    {
+      "id": "unit_and_regression_tests",
+      "result": "passed",
+      "unique_tests": 20,
+      "platform_executions": 4
+    },
+    {
+      "id": "published_weights",
+      "result": "passed",
+      "files_verified": 6,
+      "method": "Pinned revisions, file sizes and SHA-256, including cached revalidation and license notices"
+    },
+    {
+      "id": "published_single_image_cli",
+      "result": "passed",
+      "output_scores": 11,
+      "folds": 5
+    },
+    {
+      "id": "python_api",
+      "result": "passed",
+      "scope": "Two identical predictions and agreement with CLI JSON"
+    },
+    {
+      "id": "challenge_runner_artificial",
+      "result": "passed",
+      "records": 20,
+      "input_labels_hidden": true
+    },
+    {
+      "id": "challenge_runner_real",
+      "result": "passed",
+      "records": 10,
+      "input_labels_hidden": true,
+      "reference_waveforms_present": true
+    },
+    {
+      "id": "ptbxl_preparation",
+      "result": "passed",
+      "records": 20,
+      "scope": "PTB-XL 1.0.3 and PTB-XL+ 1.0.1, both full annotations and bounded fixture"
+    },
+    {
+      "id": "ecg_image_kit",
+      "result": "passed",
+      "records": 20,
+      "revision": "27b90f56896c9fc78b05a83ca14844ea2637aa0b",
+      "arguments": [
+        "--print_header"
+      ],
+      "evidence": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740437"
+    },
+    {
+      "id": "image_registration",
+      "result": "passed",
+      "records": 20
+    },
+    {
+      "id": "random_initialization_smoke",
+      "result": "passed",
+      "scope": "Actual ConvNeXt train/validation step, checkpoint save and reload"
+    },
+    {
+      "id": "imagenet_initialization",
+      "result": "passed",
+      "scope": "Actual upstream ImageNet weights downloaded and one train/validation step completed"
+    },
+    {
+      "id": "ecg_initialization_one_epoch",
+      "result": "passed",
+      "folds": 5,
+      "epochs_each": 1,
+      "size": 64
+    },
+    {
+      "id": "batch_size_option",
+      "result": "passed",
+      "batch_size": 4,
+      "epochs": 1,
+      "fold": 0,
+      "size": 64
+    },
+    {
+      "id": "lr_finder",
+      "result": "passed",
+      "search_optimizer_steps": 100,
+      "applied_learning_rate": 4.4668359215096314e-05,
+      "size": 64,
+      "scope": "Full search followed by training. A separate one-epoch short-budget check retained the default when no suggestion was available."
+    },
+    {
+      "id": "standard_training_wrapper",
+      "result": "passed",
+      "folds": 5,
+      "maximum_epochs": 30,
+      "epochs_completed": [
+        30,
+        30,
+        30,
+        10,
+        30
+      ],
+      "image_size": 384,
+      "configured_batch_size": 16,
+      "training_records": 10,
+      "num_workers": 0,
+      "scope": "Small real-data software-validation cohort, not full PTB-XL retraining"
+    },
+    {
+      "id": "trained_ensemble_reload",
+      "result": "passed",
+      "folds": 5,
+      "heldout_outputs": 10,
+      "scores_per_image": 11
+    },
+    {
+      "id": "docker",
+      "result": "passed",
+      "scope": "CUDA runtime image build, dependency check, image and folder inference, train/save check on CPU",
+      "evidence": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740437"
+    },
+    {
+      "id": "cuda_wheel_install",
+      "result": "passed",
+      "compiled_cuda": "11.8",
+      "scope": "Documented cu118 wheel install and CPU inference on a host without a physical GPU",
+      "evidence": "https://github.com/fmenegui/aimed_physionet2024/actions/runs/40382740437"
+    },
+    {
+      "id": "physical_gpu_execution",
+      "result": "not_run",
+      "reason": "No physical NVIDIA GPU in local or hosted test environments"
+    },
+    {
+      "id": "full_cohort_training_and_official_hidden_test",
+      "result": "not_run",
+      "reason": "This audit validates software on bounded public fixtures. Private InCor pretraining and official hidden-test data are not provided."
+    },
+    {
+      "id": "documentation_and_metadata",
+      "result": "passed",
+      "scope": "Local links, YAML parsing, official CFF 1.2.0 JSON schema, Python compilation"
+    }
+  ],
+  "reference_training_report": "reference_training_2026-10-26.json",
+  "licensing": {
+    "new_software": "PolyForm-Noncommercial-1.0.0",
+    "documentation_and_AIMED_checkpoint_interests": "CC-BY-NC-4.0",
+    "prior_rights_preserved": true
+  },
+  "local_source_sha256": {
+    "aimed/__init__.py": "7f78e99df25478449e5b0a2392fb0b0972108653a228dc7e45054cc07631ace0",
+    "aimed/model.py": "4f6541d9fe06af163d1975f441cd4d35aa45f2ef31bf3e51caa3bd673900f410",
+    "config_dx.py": "6cf45c040f7ce00540321398b65b29e1e0247ba27b7792982618297bb2342c48",
+    "download_weights.py": "48c5baf1f628472c7977c9695028a6fd1bfda0bc19ad5c8264a3bf58a2101064",
+    "evaluate_model.py": "ebbfe83859f6c1d04ad0b1d796e3522204a22437e0234d87d5c69fcdf9fa4b72",
+    "examples/make_demo_data.py": "2cfeecaa08a75ba7e3df43c8f9ac6bd9e6ec4cddc4031ffa37d80fccfee9768d",
+    "helper_code.py": "a4aa5cc7f4dce490b2b477c5df54006852694575fb00d01f629988753419d894",
+    "media/media/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/classification/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/classification/base/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/classification/base/classification.py": "058db9250f1520a2332c06ed418379c17ee0d4b3480e0175d95aa7253b9525c1",
+    "media/media/classification/callbacks.py": "7c8a189f16bd6d6e048d5219809ec97070e9f05be94c031844e8befcc1cd03eb",
+    "media/media/dataset/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/dataset/base/__init__.py": "40db7ae87c1b17357d8eeb7924648f4f50334ab59fc34bc70a5d8c5c213dead8",
+    "media/media/dataset/base/dataloader.py": "60a636246cdc1e96337b72e4f8eeaaa999a6783b1fc4749644085d254bca2a65",
+    "media/media/dataset/base/dataset.py": "2c0541ee55ea4003c0adcb71b5b2a8d2a8e6385d55e74f65d3d9e3d2d7e91d3f",
+    "media/media/dataset/build_csv.py": "9192fe440fc2194b7eee902d05604898e9a6100e859c73ae49173d81e581057f",
+    "media/media/dataset/get_labels.py": "66ff6115c9bd925deff3c75a5ad9da490b9235212b422222a34168cc796b72d5",
+    "media/media/dataset/validation/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/dataset/validation/stratified.py": "a78ccca26e46be3c7766d3dcd51a0caac3749bbba000c2d2d22acab1f9410533",
+    "media/media/helpers/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/helpers/create_dir.py": "fe4b267d4921e4325006ffa3e746357dd323fb343a85bd0bcb5dce210eddb42d",
+    "media/media/helpers/log.py": "89be68194419f32189739ab4ab594d6654ecce21a07b59b1a6a415a8ed9f686b",
+    "media/media/predict/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/predict/predict_from_dl.py": "9e38acb5ec70499a2a73d6cc4cac2fd9c2aac12df8287d533603593e2123827d",
+    "media/media/scripts/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/scripts/resize_images.py": "8f0b5ad25a9eda616c36aebf3718354e379688e43f8555daeeec314d66e22edc",
+    "media/media/train/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "media/media/train/prepare_from_config.py": "81fa12a993ecd764eb32507c9a096ddc757b287fc1fb9dbe7f847578d2885c6a",
+    "media/media/train/train_dx.py": "d82a3d9172b7ead4b327e87f61493a770a806c97daa3af3c8d07ea80067efcbf",
+    "media/setup.py": "24f5d514206a15f812a88dcf65e2d99489c8ae7eb3e2093c0c9e562a28953bf5",
+    "predict_image.py": "0168abede0316ac5f5b1b0dd96c73d810ec63370116c5a6209387d8d5b1adb71",
+    "prepare_image_data.py": "6e3f7a34ad093981e25811b34b55be2df3bce0756f95c0542ed69bb75731a161",
+    "prepare_ptbxl_data.py": "20a07193756267aaf44d51642108be38cbc9aee2b64bd6516e9dcb155fb7d29d",
+    "remove_hidden_data.py": "bcdff1999638279d2879aea229b67f1c3d9331614720d732d60675794bf0d646",
+    "requirements.txt": "e5d6804b807f079d587f211e8c368bfdaf1ba15038e7708309d802023df88ff2",
+    "run_model.py": "fa750378bfbdeb11d4dfc57d85721d12fa95dd2e2025c3c4579ac564de3202d1",
+    "scripts/fetch_tutorial_fixture.py": "e5207662cb4db7b469c2b4f88759e1725b5c4b9514b19a8534399528ab4e1a2b",
+    "team_code.py": "b94f8427a02d877152dc012e32da55933b7b7e52d843f505be2b7e7aade65df3",
+    "tests/test_pipeline.py": "b92e9ee42a5a813202a7e4b1ec381d7e6f0898aa8b4d99cb28dcd3fcfc69c07c",
+    "tests/test_tutorial_boundaries.py": "15075de7c7ea5bcd4ff91d1004b27544638cd7667da0d4eed585da2371c6aba7",
+    "train.py": "8acc66311f80ad95e58ba208bdd051819ccd5e4a1290af4a668ed67d879e6068",
+    "train_model.py": "e8a7ed083ae5d672e6d120eb6f40466a07159cc91811e1acaaea6c5e2fe59d24"
+  }
+}

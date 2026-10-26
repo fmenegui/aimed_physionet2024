@@ -125,7 +125,7 @@ evaluation and hardware notes.
 | [Reproducibility](docs/reproducibility.md) | Original method, pinned artifacts, release changes and limits |
 | [Reference repositories](docs/references.md) | Other teams and documentation patterns used here |
 | [Validation](docs/validation.md) | Checks actually executed for this release |
-| [Licensing status](LICENSING.md) | Code, third-party notices, weights and data |
+| [License and attribution](LICENSING.md) | Code, third-party notices, weights and data |
 
 The private InCor training datasets are not distributed here. Full regeneration
 of the original multi-stage pretraining is therefore unavailable from public

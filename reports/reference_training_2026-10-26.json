@@ -1,0 +1,97 @@
+{
+  "purpose": "Default tutorial execution on a small software-validation cohort, not a clinical benchmark.",
+  "training_records": 10,
+  "heldout_records": 10,
+  "patient_disjoint": true,
+  "configuration": {
+    "data_folder": "data/training",
+    "model_folder": "runs/audit-default-workers0",
+    "init": "ecg",
+    "pretrained_checkpoint": "pretrained_model/model_fold0.ckpt",
+    "epochs": 30,
+    "batch_size": 16,
+    "lr": 0.0001,
+    "lr_find": false,
+    "patience": 5,
+    "folds": 5,
+    "fold": -1,
+    "size": 384,
+    "num_workers": 0,
+    "device": "auto",
+    "seed": 42,
+    "quiet": false,
+    "fast_dev_run": false,
+    "classes": [
+      "NORM",
+      "Acute MI",
+      "Old MI",
+      "STTC",
+      "CD",
+      "HYP",
+      "PAC",
+      "PVC",
+      "AFIB/AFL",
+      "TACHY",
+      "BRADY"
+    ],
+    "threshold": 0.5,
+    "versions": {
+      "torch": "2.2.2+cpu",
+      "torchvision": "0.17.2+cpu",
+      "timm": "0.9.12",
+      "lightning": "2.1.3",
+      "albumentations": "1.3.1",
+      "numpy": "1.26.4",
+      "scikit-learn": "1.4.2"
+    }
+  },
+  "folds": [
+    {
+      "file": "model_fold0.ckpt",
+      "epochs_completed": 30,
+      "optimizer_steps": 30,
+      "size_bytes": 111420160,
+      "sha256": "cc001aa003cdb511cb6223f4f2a470f0d94abecb0d049e378ba709ca7dda100d",
+      "checkpoint_epoch_counter": 30
+    },
+    {
+      "file": "model_fold1.ckpt",
+      "epochs_completed": 30,
+      "optimizer_steps": 30,
+      "size_bytes": 111420160,
+      "sha256": "ec63ac4241dae7997102b9d74716d44bb2947dbdd5e99c28ec413d27bc735703",
+      "checkpoint_epoch_counter": 30
+    },
+    {
+      "file": "model_fold2.ckpt",
+      "epochs_completed": 30,
+      "optimizer_steps": 30,
+      "size_bytes": 111420160,
+      "sha256": "e1072bcda29f0154e8506793b3f40107d78240dd6f5a1fb9a0e88420ba2a1c0b",
+      "checkpoint_epoch_counter": 30
+    },
+    {
+      "file": "model_fold3.ckpt",
+      "epochs_completed": 10,
+      "optimizer_steps": 10,
+      "size_bytes": 111420160,
+      "sha256": "d4b24aa1b38f5bd16ea5ec86e0d71c5e250a36e5a587d1ce4ecfc7fb096f2c74",
+      "checkpoint_epoch_counter": 10
+    },
+    {
+      "file": "model_fold4.ckpt",
+      "epochs_completed": 30,
+      "optimizer_steps": 30,
+      "size_bytes": 111420160,
+      "sha256": "b0cb93d596752fb78efa4a91f3fc61f33f4a8ffe865100cdc4001b928f0a4055",
+      "checkpoint_epoch_counter": 30
+    }
+  ],
+  "elapsed_seconds": 1602.7331068515778,
+  "reload_and_inference": "passed",
+  "heldout_predictions": 10,
+  "epoch_accounting": "Completed epochs are read from epoch logs. The saved Lightning checkpoint counter has already advanced after fit.",
+  "device": "cpu",
+  "precision": "32-true",
+  "architecture": "convnext_tiny_in22k"
+}

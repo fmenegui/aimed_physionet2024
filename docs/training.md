@@ -79,6 +79,9 @@ python train.py -d data/training -m runs/ptbxl-lrfind --lr-find
 
 Do this on a sufficiently large dataset. The original configuration enabled the
 finder. This release makes it opt-in and records the applied learning rate per fold.
+The finder needs enough optimizer steps to suggest a rate. A one-epoch check on
+a tiny dataset may collect too few points and retain `--lr` instead. The audit
+also exercises a full 100-step search and verifies that its suggested rate is used.
 
 ## 4. Inspect the outputs
 
