@@ -13,6 +13,11 @@ Omit `--device cpu` to use an available NVIDIA GPU automatically. Image inferenc
 does not need a `.hea` header or an ECG-pretraining checkpoint. The JSON contains
 the ordered class names, probabilities, threshold, labels and checkpoint paths.
 
+The outputs are the [11 final Challenge classes](models.md#final-challenge-classes).
+All five models predict the same classes. The separate 13-output pretraining
+checkpoint is used only to initialize training and cannot be substituted here.
+For a comparison of the two downloads, see [classes and model weights](models.md).
+
 ## Python
 
 Run from the repository root, with the environment activated:
@@ -82,7 +87,7 @@ The score file is plain text, even if a `.csv` extension is chosen.
 | Error or symptom | Action |
 | --- | --- |
 | No classification checkpoints found | Run `download_weights.py --kind ensemble` or point `-m` to a trained run |
-| State dictionary size mismatch | Check that inference uses final 11-class weights, not the 13-class pretraining checkpoint |
+| State dictionary size mismatch | Check that inference uses final 11-class weights, not the 13-output pretraining checkpoint |
 | Missing ECG pretraining checkpoint | Needed for `--init ecg` training only. Run `download_weights.py --kind pretrained` |
 | NumPy ABI error | Install the pinned NumPy 1.26.4 and OpenCV versions |
 | `pkg_resources` missing | Install `requirements.txt`, including pinned setuptools |

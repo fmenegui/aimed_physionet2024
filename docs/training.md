@@ -10,12 +10,20 @@ Choose the starting weights:
 
 | Option | Starting point | Download needed | Relation to the original method |
 | --- | --- | --- | --- |
-| `--init ecg` | Released 13-class ECG-pretrained checkpoint | `download_weights.py --kind pretrained` | Starting point for final Challenge fine-tuning |
+| `--init ecg` | Released 13-output ECG-pretrained checkpoint | `download_weights.py --kind pretrained` | Starting point for final Challenge fine-tuning |
 | `--init imagenet` | timm ImageNet pretrained ConvNeXt-Tiny | Automatic timm download | Public-data alternative, skips ECG pretraining |
 | `--init none` | Random weights | None | Software checks or a separate experiment |
 
 The default is `ecg`. The two other settings are not equivalent to the winning
 method. Private pretraining datasets are not included.
+
+The final task always uses the same [11 Challenge classes](models.md#final-challenge-classes).
+With `--init ecg`, the loader first restores the 13-output pretraining model,
+keeps its learned feature extractor, replaces its prediction head with a new
+11-output head, and fine-tunes both on your training images. It does not map
+13 predictions to 11 labels. The original 13 class names and their order are
+not present in the available artifacts. See the [pretraining guide](models.md#ecg-pretraining-checkpoint)
+for the published categories and this unresolved metadata gap.
 
 ## 1. Check the pipeline
 

@@ -35,6 +35,10 @@ accepts common `#Dx:` variants. Prefer the official `# Labels:` field.
 Keep spelling and capitalization unchanged. Several labels can be comma-separated
 in one header. Labels outside this list are not training outputs.
 
+See [classes and model weights](models.md#final-challenge-classes) for every
+abbreviation, the exact PTB-XL/12SL labeling rules and how these 11 final outputs
+differ from the earlier pretraining tasks.
+
 ## PTB-XL route
 
 The preparation follows the organizers' [Python example](https://github.com/physionetchallenges/python-example-2024)

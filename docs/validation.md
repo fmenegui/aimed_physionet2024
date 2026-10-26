@@ -106,3 +106,23 @@ Run the repeatable software suite with:
 python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
+
+## Class and checkpoint documentation follow-up
+
+On 2026-10-26, the class tables and [model guide](models.md) were checked against
+the actual source and downloaded checkpoint tensors. The 20-test suite passed
+again. Additional direct checks confirmed:
+
+- Both final-class tables and manifest metadata match the API's 11-label order.
+- All six published checkpoint sizes and SHA-256 values remain unchanged.
+- The downloader copies the expanded class and purpose metadata into both weight folders.
+- The pretraining head has 13 outputs. Strict loading succeeds before it is replaced.
+- Every feature-extractor tensor is retained exactly at initialization, while
+  the new head has 11 outputs. Both the backbone and head remain trainable.
+- A forward pass after initialization returns 11 logits.
+- The edited relative documentation links and section anchors resolve.
+
+The available checkpoint, original configurations and pinned model card contain
+no original 13-class name/order mapping. The paper's 12 named InCor-EMG
+categories are documented separately, without assigning them to unverified
+checkpoint output indices. No new benchmark result is asserted.

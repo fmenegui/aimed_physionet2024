@@ -2,6 +2,24 @@
   "format_version": 1,
   "artifacts": {
     "ensemble": {
+      "purpose": "Final Challenge classification inference",
+      "architecture": "convnext_tiny_in22k",
+      "output_count": 11,
+      "classes": [
+        "NORM",
+        "Acute MI",
+        "Old MI",
+        "STTC",
+        "CD",
+        "HYP",
+        "PAC",
+        "PVC",
+        "AFIB/AFL",
+        "TACHY",
+        "BRADY"
+      ],
+      "class_names_status": "Verified order from the submitted configuration",
+      "documentation_url": "https://github.com/fmenegui/aimed_physionet2024/blob/main/docs/models.md",
       "repository": "fmenegui/cinc_of5",
       "revision": "1ab856738289e4c0b76c4df323ef33cfdc45f1f2",
       "directory": "model",
@@ -37,6 +55,12 @@
       "license_scope": "AIMED copyright interests only, subject to prior permissions and third-party rights"
     },
     "pretrained": {
+      "purpose": "Initialize ECG fine-tuning, replacing the original prediction head",
+      "architecture": "convnext_tiny_in22k",
+      "output_count": 13,
+      "classes": null,
+      "class_names_status": "Original names and order not recovered from the available checkpoint, configuration or model card",
+      "documentation_url": "https://github.com/fmenegui/aimed_physionet2024/blob/main/docs/models.md#ecg-pretraining-checkpoint",
       "repository": "fmenegui/pretrained_cinc_of5",
       "revision": "831f9bdb728a502f214831a26d0457738645ffc3",
       "directory": "pretrained_model",

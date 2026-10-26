@@ -28,7 +28,7 @@ training runs cannot be regenerated from the files in this repository alone.
 | Artifact | Hugging Face repository | Revision | Contents |
 | --- | --- | --- | --- |
 | Final ensemble | `fmenegui/cinc_of5` | `1ab856738289e4c0b76c4df323ef33cfdc45f1f2` | Five 11-class checkpoints |
-| ECG pretraining | `fmenegui/pretrained_cinc_of5` | `831f9bdb728a502f214831a26d0457738645ffc3` | One 13-class checkpoint |
+| ECG pretraining | `fmenegui/pretrained_cinc_of5` | `831f9bdb728a502f214831a26d0457738645ffc3` | One 13-output checkpoint, original class names and order unavailable |
 
 Every checkpoint's exact filename, byte size and SHA-256 are in
 [`weights_manifest.json`](../weights_manifest.json). The hashes come from the
@@ -37,6 +37,13 @@ Hub's LFS metadata at those revisions and are checked after download.
 Both artifacts have a file named `model_fold0.ckpt` but serve different purposes.
 Do not interchange them. The final ensemble is about 557 MB and the pretraining
 checkpoint about 111 MB. These files are downloaded separately from GitHub.
+
+The [model guide](models.md) documents all 11 final class names and labeling
+rules. It also distinguishes the six initial ECG-adaptation categories, the
+12 InCor-EMG categories named in the paper, and the 13 outputs observed in the
+released pretraining checkpoint. The original 13-output class vocabulary and
+order are absent from the available artifacts and have not been inferred from
+the paper. Final fine-tuning replaces that head with an 11-output head.
 
 The original Dockerfile downloaded these same repository names, without fixing
 revisions. The inspected source does not record which Hub commit was present
