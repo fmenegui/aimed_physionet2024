@@ -55,6 +55,8 @@ def run(args):
     for record in records:
         record_path, record_basename = os.path.split(record)
         record_image_files = record_to_image_files[record]
+        if not record_image_files:
+            raise FileNotFoundError(f"No generated images found for {record}. Expected record-0.png style filenames.")
 
         # Sort the images numerically if numerical and alphanumerically otherwise.
         record_suffixes = [os.path.splitext(image_file)[0].split('-')[-1] for image_file in record_image_files]

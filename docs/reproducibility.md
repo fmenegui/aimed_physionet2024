@@ -76,6 +76,13 @@ separately and linked to the corresponding checkpoint hashes.
 - Pin compatible dependencies, including NumPy, OpenCV and setuptools.
 - Add software tests and an artificial example dataset generator.
 - Normalize whitespace in the imported source files.
+- Pin Hugging Face Hub to preserve the timm ImageNet-loading API.
+- Parse 12SL labels as exact acronyms and support missing annotations.
+- Preserve existing header comments on a separate line during label preparation.
+- Reject image-registration inputs whose headers have no corresponding images.
+- Allow the standard training wrapper to disable multiprocessing through
+  `AIMED_NUM_WORKERS=0` on restricted hosts.
+- Provide a tested generator environment and bounded public-data fixture helper.
 
 These changes improve usability and address observed implementation issues.
 They do not establish a new Challenge score.

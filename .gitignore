@@ -13,5 +13,7 @@ runs/
 outputs/
 logs/
 cache/
+third_party/
+.venv-generator/
 lightning_logs/
 .ipynb_checkpoints/

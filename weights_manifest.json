@@ -31,7 +31,10 @@
           "size": 111420224,
           "sha256": "d9c36d92f47f2fbad5c17802cec006f314b5ad6d1d074f9e4b843852d3cbf486"
         }
-      ]
+      ],
+      "license": "CC-BY-NC-4.0",
+      "license_notice": "MODEL_LICENSE.md",
+      "license_scope": "AIMED copyright interests only, subject to prior permissions and third-party rights"
     },
     "pretrained": {
       "repository": "fmenegui/pretrained_cinc_of5",
@@ -43,7 +46,10 @@
           "size": 111432194,
           "sha256": "c10469748d2dc94769f3e7ad48917086f132b09ddf7bea2a502839e064c42ecc"
         }
-      ]
+      ],
+      "license": "CC-BY-NC-4.0",
+      "license_notice": "MODEL_LICENSE.md",
+      "license_scope": "AIMED copyright interests only, subject to prior permissions and third-party rights"
     }
   },
   "inference": {

@@ -58,6 +58,13 @@ These downloads are separate from the model weights. Check available storage
 before generating large image collections. Keep source data and outputs outside
 version control.
 
+For bounded software validation, `python scripts/fetch_tutorial_fixture.py
+--output data/tutorial` fetches 20 public records and 100 annotation rows instead
+of the full datasets. Its manifest records separate patient groups and input
+hashes. Replace the data path prefixes in the following commands with
+`data/tutorial` when using that fixture. It is deliberately not a clinical
+benchmark.
+
 ### 2. Prepare labels and headers
 
 ```bash
@@ -76,24 +83,32 @@ mapping.
 
 ### 3. Generate ECG images
 
-Install ECG-Image-Kit in its own environment by following the generator's
-[installation instructions](https://github.com/alphanumericslab/ecg-image-kit/tree/main/codes/ecg-image-generator).
-Its dependencies differ from the classifier's. Record the generator commit and
-the command used for your experiment.
-
-From that generator's `codes/ecg-image-generator` directory, run:
+Use a separate environment. The audited Linux/Python 3.12 dependency set is
+provided here because the upstream generator requirements include older
+TensorFlow and spaCy versions. The following commands pin the tested generator
+revision:
 
 ```bash
-python gen_ecg_images_from_data_batch.py \
-  -i /absolute/path/to/aimed_physionet2024/data/prepared/00000 \
-  -o /absolute/path/to/aimed_physionet2024/data/images/00000 \
+python -m venv .venv-generator
+.venv-generator/bin/python -m pip install -r requirements-generator.txt
+git clone --filter=blob:none --sparse https://github.com/alphanumericslab/ecg-image-kit.git third_party/ecg-image-kit
+git -C third_party/ecg-image-kit sparse-checkout set codes/ecg-image-generator
+git -C third_party/ecg-image-kit checkout 27b90f56896c9fc78b05a83ca14844ea2637aa0b
+```
+
+From this repository's root, run:
+
+```bash
+.venv-generator/bin/python third_party/ecg-image-kit/codes/ecg-image-generator/gen_ecg_images_from_data_batch.py \
+  -i "$PWD/data/prepared/00000" \
+  -o "$PWD/data/images/00000" \
   --print_header
 ```
 
-Replace the absolute paths with your checkout location. Keep the generated
-headers and their images together. No historical generator revision is asserted
-by this release. Recreating the exact 2024 image collection requires that missing
-experiment information.
+Keep the generated headers and their images together. This revision is pinned
+for the present tutorial audit. Its identity with the generator used during
+the 2024 experiment is not established. Full handwriting synthesis and its
+external pretrained assets are outside this default generation recipe.
 
 ### 4. Register the images in the headers
 

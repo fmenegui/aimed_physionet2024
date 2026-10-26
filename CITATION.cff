@@ -3,6 +3,10 @@ message: "Please cite the AIMED CinC 2024 paper when using this work."
 type: software
 title: "AIMED: ECG image classification for the PhysioNet Challenge 2024"
 version: 0.1.0
+license:
+  - PolyForm-Noncommercial-1.0.0
+  - CC-BY-NC-4.0
+  - BSD-2-Clause
 repository-code: "https://github.com/fmenegui/aimed_physionet2024"
 authors:
   - family-names: Dias

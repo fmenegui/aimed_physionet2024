@@ -2,6 +2,7 @@
 import argparse
 import importlib.metadata
 import json
+import os
 from pathlib import Path
 
 
@@ -19,7 +20,7 @@ def get_parser():
     parser.add_argument("--folds", type=int, default=5)
     parser.add_argument("--fold", type=int, default=-1, help="Zero-based fold, or -1 for all folds.")
     parser.add_argument("--size", type=int, default=384)
-    parser.add_argument("--num-workers", type=int, default=2)
+    parser.add_argument("--num-workers", type=int, default=int(os.environ.get("AIMED_NUM_WORKERS", "2")))
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--quiet", action="store_true")

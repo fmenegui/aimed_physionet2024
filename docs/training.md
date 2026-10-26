@@ -118,6 +118,13 @@ python evaluate_model.py -d data/heldout_reference -o outputs/heldout -s outputs
 ```
 
 The standard training wrapper uses the defaults. Use `train.py` to change them.
+On systems that cannot create multiprocessing workers, set
+`AIMED_NUM_WORKERS=0` before either training command. Explicit `--num-workers`
+still takes precedence in `train.py`.
+
+```bash
+AIMED_NUM_WORKERS=0 python train_model.py -d data/training -m runs/challenge-no-workers -v
+```
 
 ## Evaluate without leakage
 

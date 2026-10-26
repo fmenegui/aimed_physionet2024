@@ -130,6 +130,18 @@ The private InCor training datasets are not distributed here. Full regeneration
 of the original multi-stage pretraining is therefore unavailable from public
 data alone. Fine-tuning from the released checkpoint and inference are provided.
 
+## License
+
+New AIMED-owned code is available under [PolyForm Noncommercial 1.0.0](LICENSE)
+with the attribution notices in [NOTICE](NOTICE). Documentation and AIMED's rights
+in the identified checkpoint artifacts are offered under CC BY-NC 4.0.
+Commercial use requires separate authorization unless an existing permission
+or an expressly permitted purpose applies.
+
+Earlier BSD or other permissions are preserved. The historical 2024 submission
+is not represented as becoming commercial-use prohibited. Read
+[LICENSING.md](LICENSING.md) and [MODEL_LICENSE.md](MODEL_LICENSE.md) for the scope.
+
 ## Cite
 
 Felipe M Dias, Estela Ribeiro, Quenaz B Soares, Jose E Krieger, Marco A Gutierrez.

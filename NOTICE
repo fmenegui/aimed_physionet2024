@@ -1,0 +1,10 @@
+Required Notice: Copyright (c) 2026 Felipe Meneguitti Dias and AIMED contributors.
+Required Notice: AIMED, Image-Based Electrocardiogram Classification Using Pre-trained ConvNext, Dias FM, Ribeiro E, Soares QB, Krieger JE, Gutierrez MA, Computing in Cardiology 2024, DOI 10.22489/CinC.2024.398.
+Required Notice: Source: https://github.com/fmenegui/aimed_physionet2024
+
+The PolyForm Noncommercial grant covers new AIMED-owned contributions in this
+maintained release. Scope and prior-license exceptions are in LICENSING.md.
+Documentation and AIMED's rights in the identified checkpoint artifacts are
+offered under CC BY-NC 4.0 as described in LICENSING.md and MODEL_LICENSE.md.
+Pre-existing and third-party rights are preserved. Prior BSD or other grants
+are not revoked or narrowed by this release.

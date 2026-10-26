@@ -12,6 +12,18 @@ import sys
 
 from helper_code import *
 
+def parse_sl_statements(value):
+    """Read exact 12SL acronyms, treating unavailable annotations as empty."""
+    if isinstance(value, str):
+        if not value.strip():
+            return set()
+        value = ast.literal_eval(value)
+    elif not isinstance(value, (list, tuple, set)) and pd.isna(value):
+        return set()
+    if not isinstance(value, (list, tuple, set)):
+        raise ValueError("12SL statements must contain a list of acronyms.")
+    return set(value)
+
 # Parse arguments.
 def get_parser():
     description = 'Prepare the PTB-XL database for use in the Challenge.'
@@ -64,6 +76,8 @@ def run(args):
 
     # Identify the header files.
     records = find_records(args.input_folder)
+    if not records:
+        raise FileNotFoundError(f"No WFDB headers found in {args.input_folder}")
 
     # Update the header files to include demographics data and labels and copy the signal files unchanged.
     for record in records:
@@ -100,7 +114,7 @@ def run(args):
         superclasses = row['diagnostic_superclass']
 
         if ecg_id in df_sl_database.index:
-            sl_codes = df_sl_database.loc[ecg_id]['statements']
+            sl_codes = parse_sl_statements(df_sl_database.loc[ecg_id]['statements'])
         else:
             sl_codes = list()
 
@@ -150,7 +164,8 @@ def run(args):
 
         record_line = record_line.strip() + f' {time_string} {date_string} ' + '\n'
         signal_lines = signal_lines.strip() + '\n'
-        comment_lines = comment_lines.strip() + f'# Age: {age}\n# Sex: {sex}\n# Height: {height}\n# Weight: {weight}\n{substring_labels} {labels}\n'
+        comment_lines = (comment_lines.strip() + '\n') if comment_lines.strip() else ''
+        comment_lines += f'# Age: {age}\n# Sex: {sex}\n# Height: {height}\n# Weight: {weight}\n{substring_labels} {labels}\n'
 
         output_header = record_line + signal_lines + comment_lines
 

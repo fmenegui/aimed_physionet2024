@@ -38,6 +38,10 @@ def download(kind, output=None):
         finally:
             partial.unlink(missing_ok=True)
     (output / "weights_manifest.json").write_text(json.dumps(specs, indent=2) + "\n")
+    root = Path(__file__).resolve().parent
+    shutil.copyfile(root / "LICENSES" / "CC-BY-NC-4.0.txt", output / "LICENSE.txt")
+    shutil.copyfile(root / "MODEL_LICENSE.md", output / "MODEL_LICENSE.md")
+    shutil.copyfile(root / "NOTICE", output / "NOTICE")
 
 
 def main():

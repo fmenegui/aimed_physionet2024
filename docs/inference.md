@@ -33,6 +33,8 @@ Load the ensemble once and reuse it across images. Checkpoint loading is strict.
 Missing or incompatible weights raise an error instead of silently using random
 parameters. Checkpoints use the legacy PyTorch format. Load files from a trusted
 source. The bundled downloader verifies the published artifacts.
+The downloader also saves the checkpoint license, scope notice and attribution
+alongside the weights. See [licensing](../LICENSING.md) for prior-grant exceptions.
 
 ## Preprocessing and aggregation
 

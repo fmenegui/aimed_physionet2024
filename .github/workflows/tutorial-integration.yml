@@ -1,6 +1,11 @@
 name: Tutorial integration
 on:
   push:
+    paths:
+      - '**/*.py'
+      - '*requirements*.txt'
+      - 'Dockerfile'
+      - '.github/workflows/**'
   workflow_dispatch:
 jobs:
   docker:
@@ -55,3 +60,65 @@ jobs:
             outputs/training/run_config.json
             outputs/training/metrics.json
             outputs/training/output.log
+  generator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OMP_NUM_THREADS: "2"
+      TF_NUM_INTRAOP_THREADS: "2"
+      TF_NUM_INTEROP_THREADS: "2"
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-generator.txt
+      - name: Install generator environment
+        run: |
+          python -m venv .venv-generator
+          .venv-generator/bin/python -m pip install -r requirements-generator.txt
+          .venv-generator/bin/python -m pip check
+      - name: Check out pinned upstream generator
+        run: |
+          git clone --filter=blob:none --sparse https://github.com/alphanumericslab/ecg-image-kit.git third_party/ecg-image-kit
+          git -C third_party/ecg-image-kit sparse-checkout set codes/ecg-image-generator
+          git -C third_party/ecg-image-kit checkout 27b90f56896c9fc78b05a83ca14844ea2637aa0b
+      - name: Fetch bounded public PTB-XL fixture
+        run: python scripts/fetch_tutorial_fixture.py --output data/tutorial
+      - name: Prepare genuine PTB-XL and PTB-XL+ labels
+        run: |
+          .venv-generator/bin/python prepare_ptbxl_data.py -i data/tutorial/ptb-xl/records500/00000 -pd data/tutorial/ptb-xl/ptbxl_database.csv -pm data/tutorial/ptb-xl/scp_statements.csv -sd data/tutorial/ptb-xl-plus/labels/12sl_statements.csv -sm data/tutorial/ptb-xl-plus/labels/mapping/12slv23ToSNOMED.csv -o data/tutorial/prepared/00000
+      - name: Execute documented ECG-Image-Kit command
+        run: |
+          .venv-generator/bin/python third_party/ecg-image-kit/codes/ecg-image-generator/gen_ecg_images_from_data_batch.py -i "$PWD/data/tutorial/prepared/00000" -o "$PWD/data/tutorial/images/00000" --print_header
+      - name: Register generated images
+        run: .venv-generator/bin/python prepare_image_data.py -i data/tutorial/images/00000 -o data/tutorial/registered/00000
+      - name: Validate generated records
+        run: |
+          .venv-generator/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          fixture = json.loads(Path('data/tutorial/fixture_manifest.json').read_text())
+          assert fixture['patient_disjoint']
+          root = Path('data/tutorial/registered/00000')
+          headers = list(root.glob('*.hea'))
+          assert len(headers) == 20
+          for header in headers:
+              text = header.read_text()
+              assert '# Labels:' in text and '# Image:' in text
+              images = next(line for line in text.splitlines() if line.startswith('# Image:')).split(':',1)[1]
+              for name in images.split(','):
+                  with Image.open(root/name.strip()) as image:
+                      image.verify()
+          print('20 genuine PTB-XL records prepared, rendered and registered')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ptbxl-generator-tutorial-evidence
+          path: |
+            data/tutorial/fixture_manifest.json
+            data/tutorial/registered/00000/*.hea
